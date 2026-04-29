@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Central de Portais | Agiliza Credi</title>
+
+  <style>
+    :root {
+      --azul: #0b4f9c;
+      --azul-escuro: #073b73;
+      --laranja: #f58220;
+      --fundo: #fff7ef;
+      --branco: #ffffff;
+      --texto: #263238;
+      --cinza: #6b7280;
+      --borda: #e8e8e8;
+      --sombra: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, var(--fundo), #ffffff);
+      color: var(--texto);
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--azul), var(--azul-escuro));
+      color: white;
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--sombra);
+      margin-bottom: 28px;
+    }
+
+    header .tag {
+      display: inline-block;
+      background: var(--laranja);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .search-box {
+      margin: 22px 0;
+      background: var(--branco);
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      padding: 14px;
+      border: 1px solid var(--borda);
+    }
+
+    .search-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 12px;
+      color: var(--texto);
+    }
+
+    .section-title {
+      margin: 32px 0 16px;
+      font-size: 22px;
+      color: var(--azul-escuro);
+      border-left: 6px solid var(--laranja);
+      padding-left: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--branco);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--borda);
+      transition: 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+      color: var(--azul-escuro);
+    }
+
+    .card small {
+      color: var(--cinza);
+      display: block;
+      margin-bottom: 16px;
+      word-break: break-all;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 11px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s ease;
+      flex: 1;
+      min-width: 110px;
+    }
+
+    .btn-open {
+      background: var(--azul);
+      color: white;
+    }
+
+    .btn-copy {
+      background: var(--laranja);
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .suspenso {
+      background: #f3f4f6;
+      border: 1px dashed #9ca3af;
+    }
+
+    .suspenso h3 {
+      color: #6b7280;
+    }
+
+    footer {
+      text-align: center;
+      margin: 40px 0 10px;
+      color: var(--cinza);
+      font-size: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--azul-escuro);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 999px;
+      box-shadow: var(--sombra);
+      display: none;
+      font-size: 14px;
+      z-index: 999;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      header {
+        padding: 26px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <span class="tag">AGILIZA CREDI</span>
+      <h1>Central de Portais dos Convênios</h1>
+      <p>Acesse ou copie rapidamente o link correto para enviar ao cliente.</p>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔎 Buscar convênio..." onkeyup="filtrarPortais()" />
+    </div>
+
+    <h2 class="section-title">🏙️ Prefeituras</h2>
+    <div class="grid">
+
+      <div class="card" data-name="prefeitura de campo largo">
+        <h3>Prefeitura de Campo Largo</h3>
+        <small>www.www1.consignet.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.www1.consignet.com.br/auth/login" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.www1.consignet.com.br/auth/login')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de curitiba">
+        <h3>Prefeitura de Curitiba</h3>
+        <small>www2.econsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www2.econsig.com.br/curitiba/servidor/#no-back" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www2.econsig.com.br/curitiba/servidor/#no-back')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de joinville">
+        <h3>Prefeitura de Joinville</h3>
+        <small>consignacao.serpro.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://consignacao.serpro.gov.br" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://consignacao.serpro.gov.br')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de ponta grossa">
+        <h3>Prefeitura de Ponta Grossa</h3>
+        <small>neoconsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.neoconsig.com.br/neoconsig/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.neoconsig.com.br/neoconsig/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de são jose dos pinhais sao jose">
+        <h3>Prefeitura de São José dos Pinhais</h3>
+        <small>servicos.sjp.pr.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="http://servicos.sjp.pr.gov.br/servicos/consigsjp/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('http://servicos.sjp.pr.gov.br/servicos/consigsjp/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de são paulo capital sao paulo">
+        <h3>Prefeitura de São Paulo (Capital)</h3>
+        <small>portaldoconsignado.org.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.portaldoconsignado.org.br" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.portaldoconsignado.org.br')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de blumenau">
+        <h3>Prefeitura de Blumenau</h3>
+        <small>www2.econsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www2.econsig.com.br/blumenau/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www2.econsig.com.br/blumenau/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de cascavel">
+        <h3>Prefeitura de Cascavel</h3>
+        <small>portal.econsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://portal.econsig.com.br/cascavel/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://portal.econsig.com.br/cascavel/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de florianopolis florianópolis">
+        <h3>Prefeitura de Florianópolis</h3>
+        <small>infoconsig.net.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="http://www.infoconsig.net.br" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('http://www.infoconsig.net.br')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="prefeitura de foz do iguaçu foz do iguacu">
+        <h3>Prefeitura de Foz do Iguaçu</h3>
+        <small>www.www1.consignet.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.www1.consignet.com.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.www1.consignet.com.br/')">Copiar link</button>
+        </div>
+      </div>
+
+    </div>
+
+    <h2 class="section-title">🏛️ Governos Estaduais</h2>
+    <div class="grid">
+
+      <div class="card" data-name="governo al alagoas">
+        <h3>Governo AL</h3>
+        <small>alagoas.safeconsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://alagoas.safeconsig.com.br/safe" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://alagoas.safeconsig.com.br/safe')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo ba bahia">
+        <h3>Governo BA</h3>
+        <small>govbahia.consiglog.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://govbahia.consiglog.com.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://govbahia.consiglog.com.br/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo go goias goiás">
+        <h3>Governo GO</h3>
+        <small>neoconsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://neoconsig.com.br/neoconsig/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://neoconsig.com.br/neoconsig/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo ma maranhao maranhão">
+        <h3>Governo MA</h3>
+        <small>faciltecnologia.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.faciltecnologia.com.br/consigfacil/maranhao/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.faciltecnologia.com.br/consigfacil/maranhao/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo mg minas gerais">
+        <h3>Governo MG</h3>
+        <small>serha2.mg.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://wwws.serha2.mg.gov.br/ishc/telaacesso.asp?vCDUnidade=1501" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://wwws.serha2.mg.gov.br/ishc/telaacesso.asp?vCDUnidade=1501')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo ms mato grosso do sul">
+        <h3>Governo MS</h3>
+        <small>econsig.ms.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://econsig.ms.gov.br/ms/login/login.jsp?t=20140703095238#no-back" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://econsig.ms.gov.br/ms/login/login.jsp?t=20140703095238#no-back')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo pb paraiba paraíba">
+        <h3>Governo PB</h3>
+        <small>codata.pb.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://codata.pb.gov.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://codata.pb.gov.br/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo pe pernambuco">
+        <h3>Governo PE</h3>
+        <small>peconsig.pe.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.peconsig.pe.gov.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.peconsig.pe.gov.br/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo pi piaui piauí">
+        <h3>Governo PI</h3>
+        <small>consigfacil.sead.pi.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://consigfacil.sead.pi.gov.br/index.php" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://consigfacil.sead.pi.gov.br/index.php')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo pr parana paraná">
+        <h3>Governo PR</h3>
+        <small>paranaconsig.pr.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.paranaconsig.pr.gov.br/pr/v3/autenticarUsuario?t=20250401160538#no-back" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.paranaconsig.pr.gov.br/pr/v3/autenticarUsuario?t=20250401160538#no-back')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card suspenso" data-name="governo rj rio de janeiro suspenso">
+        <h3>Governo RJ</h3>
+        <small>Temporariamente suspenso</small>
+        <div class="buttons">
+          <button class="btn btn-copy" onclick="alert('Governo RJ está temporariamente suspenso.')">Suspenso</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo ro rondonia rondônia">
+        <h3>Governo RO</h3>
+        <small>consignacao.sistemas.ro.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://consignacao.sistemas.ro.gov.br/#/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://consignacao.sistemas.ro.gov.br/#/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo rr roraima">
+        <h3>Governo RR</h3>
+        <small>consignado.gridsoftware.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://consignado.gridsoftware.com.br/grid/login.seam" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://consignado.gridsoftware.com.br/grid/login.seam')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo sc santa catarina">
+        <h3>Governo SC</h3>
+        <small>sigrhconsig.sea.sc.gov.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="http://sigrhconsig.sea.sc.gov.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('http://sigrhconsig.sea.sc.gov.br/')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo sp são paulo sao paulo">
+        <h3>Governo SP</h3>
+        <small>portaldoconsignado.org.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.portaldoconsignado.org.br" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.portaldoconsignado.org.br')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="governo to tocantins">
+        <h3>Governo TO</h3>
+        <small>viabillize.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://viabillize.com.br/" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://viabillize.com.br/')">Copiar link</button>
+        </div>
+      </div>
+
+    </div>
+
+    <h2 class="section-title">🪖 Federais / Militares</h2>
+    <div class="grid">
+
+      <div class="card" data-name="exercito exército">
+        <h3>Exército</h3>
+        <small>econsig.com.br/ebconsig</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.econsig.com.br/ebconsig" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.econsig.com.br/ebconsig')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="aeronautica aeronáutica">
+        <h3>Aeronáutica</h3>
+        <small>aerconsig.com.br</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.aerconsig.com.br" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.aerconsig.com.br')">Copiar link</button>
+        </div>
+      </div>
+
+      <div class="card" data-name="federal siape servidor federal sou gov">
+        <h3>Federal / SIAPE</h3>
+        <small>gov.br/servidor</small>
+        <div class="buttons">
+          <a class="btn btn-open" href="https://www.gov.br/servidor/pt-br/assuntos/sou-gov" target="_blank">Abrir portal</a>
+          <button class="btn btn-copy" onclick="copiarLink('https://www.gov.br/servidor/pt-br/assuntos/sou-gov')">Copiar link</button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      Central de Portais Agiliza Credi · Uso interno para orientação dos lojistas
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Link copiado com sucesso!</div>
+
+  <script>
+    function copiarLink(link) {
+      navigator.clipboard.writeText(link).then(function () {
+        mostrarToast();
+      }).catch(function () {
+        const input = document.createElement("input");
+        input.value = link;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+        mostrarToast();
+      });
+    }
+
+    function mostrarToast() {
+      const toast = document.getElementById("toast");
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 2200);
+    }
+
+    function filtrarPortais() {
+      const busca = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+
+      cards.forEach(card => {
+        const nome = card.getAttribute("data-name").toLowerCase();
+        const texto = card.innerText.toLowerCase();
+
+        if (nome.includes(busca) || texto.includes(busca)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
